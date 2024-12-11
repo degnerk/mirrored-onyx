@@ -13,7 +13,7 @@ export async function initDB() {
     db = await openDB(DB_NAME, DB_VERSION, {
         upgrade(db) {
             if (!db.objectStoreNames.contains(STORE_NODES)) {
-                db.createObjectStore(STORE_NODES, { keyPath: 'id' });
+                db.createObjectStore(STORE_NODES, { keyPath: 'unique_id' });
             }
             if (!db.objectStoreNames.contains(STORE_LINKS)) {
                 db.createObjectStore(STORE_LINKS, { autoIncrement: true });
@@ -30,7 +30,7 @@ export async function initDB() {
 
 // Add a central node
 export async function addCentralNode() {
-    const centralNode = { id: `node-${Date.now()}`, top: 206, left: 465, type: 'Central Node', ring:0, place:0,id:0, childCount:0 };
+    const centralNode = { unique_id: `node-${Date.now()}`, top: 206, left: 465, type: 'Central Node', ring:0, place:0,id:0, childCount:0 };
     await addNodeToDB(centralNode);
 }
 

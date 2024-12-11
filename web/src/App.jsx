@@ -6,7 +6,6 @@ import ProjectNodes from "./components/ProjectNodes.jsx";
 import { initDB, getAllNodes, getAllLinks } from './database/database.js';
 import { handleAddNode, handleNodeClick, handleReset } from './logic/logic.js';
 import './App.css';
-import { handlePosition } from "./logic/logic.js";
 
 export const Context = React.createContext()
 

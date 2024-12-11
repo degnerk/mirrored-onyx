@@ -13,7 +13,7 @@ export const handleAddNode = async (type, top, left, selectedNode, updateStateCa
                 const position = handlePosition(map, setmap, selectedNode)
 
             const newNode = {
-                id: `node-${Date.now()}`, // ID based on timestamp so it will always be unique
+                unique_id: `node-${Date.now()}`, // ID based on timestamp so it will always be unique
                 type: type,
                 top: position[0],
                 left: position[1],
@@ -87,7 +87,6 @@ export function handlePosition(map, setMap, selectedNode){
     let top=0
     let left=0
     const ring = selectedNode.ring+1
-    console.log("RING:"+ring)
     //I'm going to hardcode the first 4 positions, then the rest will be programmatic
     //this will be vector based.
     const nMap = new Map(map)
@@ -95,34 +94,27 @@ export function handlePosition(map, setMap, selectedNode){
     const count = parentData[2]
     const parentTop = parentData[0]
     const parentLeft = parentData[1]
-    console.log("count: "+count)
-    if(ring==0){
+    if(ring === 0) {
         top = 206
         left = 465
-    }else if(ring<2){
+    } else if(ring < 2) {
 
-        if(count==0){
+        if(count === 0) {
             top = parentTop
             left = parentLeft-niceOffset
-            console.log("parent Top: "+parentTop)
-            console.log("made first kid")
-            
-        }else if(count==1){
-            console.log("parent Top: "+parentTop)
+        } else if(count === 1) {
             top = parentTop
             left = parentTop+niceOffset+nodeWidth
-        }else if(count ==2){
-            console.log("parent Top: "+parentTop)
+        } else if(count === 2) {
             top = parentTop-niceTOffset
             left = parentLeft
-        }else if(count ==3){
+        } else if(count === 3) {
             top = parentTop+niceTOffset
             left = parentLeft
-        }else{
+        } else {
             throw new console.error();
         }
-    }else if(ring<3){
-        //const data = nMap.get(selectedNode.selectedNode.id)
+    } else if(ring < 3) {
         const data = nMap.get(0)
         const grandTop = data[0]
         const grandLeft= data[1]
@@ -130,47 +122,37 @@ export function handlePosition(map, setMap, selectedNode){
         //this should look like x2-x1/distance and y2-y1/distance
         let x = parentLeft-grandLeft
         let y = parentTop-grandTop
-        let ranOutofSpace = 100
-        if(parentTop!=206){
-            if(count==0){
+        if (parentTop!==206) {
+            if (count === 0) {
                 top = parentTop +y
                 left = parentLeft+x
-                console.log(`Left: ${left}, Top: ${top}`)
-            }else if(count==1){
+            } else if(count === 1) {
                 //update all nodes
                 top = parentTop+y
                 left = parentLeft+x+150
-            }else if(count==2){
+            } else if(count === 2) {
                 top = parentTop+y
                 left=parentLeft+x-150
-            }else{
+            } else {
                 throw new Error();
             }
-        }else{
-            if(count==0){
+        } else {
+            if(count === 0) {
                 top = parentTop +y
                 left = parentLeft+(x*.5)
-                console.log(`Left: ${left}, Top: ${top}`)
-            }else if(count==1){
+            } else if(count === 1) {
                 //update all nodes
                 top = parentTop+y+100
                 left = parentLeft+(x*0.5)
-            }else if(count==2){
+            } else if(count === 2) {
                 top = parentTop+y-100
                 left=parentLeft+(x*.5)
-            }else{
+            } else {
                 throw new Error();
             }
         }
-
-
-    }else{
+    } else {
         throw new Error();
     }
-
-    
     return [top, left]
-
-    
-    
 }

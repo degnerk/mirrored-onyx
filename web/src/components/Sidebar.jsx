@@ -2,6 +2,14 @@ import React, { useState, useEffect, useRef } from 'react';
 import { FaPlus, FaRedo } from 'react-icons/fa';
 import SidebarIcon from './SidebarIcon';
 
+/**
+ * Sidebar component responsible for holding editing features for the project board
+ * Includes features such as adding a new node and resetting the project to its initial state
+ * @param addNode Function that creates a new node on the project board (`handleAddNode` in logic.js)
+ * @param resetProject Function that resets the project to its initial state (`handleReset` in logic.js)
+ * @param selectedNode The node that is currently selected
+ * @param setErrorMessage Defines any errors that have occurred (`setErrorMessage` in logic.js)
+ */
 function Sidebar({ addNode, resetProject, selectedNode, setErrorMessage }) {
     const [popupVisible, setPopupVisible] = useState(false);
     const [popupPosition, setPopupPosition] = useState({ top: 0, left: 0 });

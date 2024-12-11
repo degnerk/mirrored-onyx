@@ -1,6 +1,9 @@
 import React from 'react';
 
+/** Generates a 17x17 grid on the project board
+ */
 function Grid() {
+
 
     return (
         <div className="grid-container">

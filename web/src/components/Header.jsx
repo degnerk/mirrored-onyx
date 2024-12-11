@@ -1,5 +1,8 @@
 import React from 'react';
 
+/**
+ * Header item responsible for displaying the project title and logo
+ */
 function Header() {
     return (
         <header className="header">

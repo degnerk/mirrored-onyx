@@ -1,5 +1,6 @@
 import { openDB } from 'idb';
 
+
 const DB_NAME = 'NodeApp';
 const DB_VERSION = 1;
 const STORE_NODES = 'nodes';
@@ -29,7 +30,7 @@ export async function initDB() {
 
 // Add a central node
 export async function addCentralNode() {
-    const centralNode = { id: `node-${Date.now()}`, top: 206, left: 465, type: 'Central Node' };
+    const centralNode = { id: `node-${Date.now()}`, top: 206, left: 465, type: 'Central Node', ring:0, place:0,id:0, childCount:0 };
     await addNodeToDB(centralNode);
 }
 

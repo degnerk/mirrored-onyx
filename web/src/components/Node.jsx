@@ -1,23 +1,39 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Context } from '../App';
 
-function Node({ top, left, type, onClick, isSelected, id, childCount = 0 }) {
-    const [data, setData] = useState({ top, left, childCount });
+/**
+ * Represents a node on the project board
+ * @param top Represents how far the node is from the top of the project board (ex: 100px from the top)
+ * @param left Represents how far the node is from the left of the project board (ex: 100px from the left)
+ * @param type Represents the type of node (Text, File, Central Node)
+ * @param onClick Once yje node is clicked, a function is called (mostly a selected node function `handleNodeClick` in logic.js)
+ * @param isSelected Boolean that represents if the node is selected
+ * @returns {Element} A fully functional node to display on the project board
+ */
+function Node({ top, left, type, onClick, isSelected, ring, place, parent, id, childCount = 0 }) {
+    const [data, setData] = useState({ top, left, childCount }); // Initialize state with props
     const [map, setMap] = useContext(Context);
 
-    useEffect(() => {
-        const nMap = new Map(map);
-        nMap.set(id, [data.top, data.left, data.childCount]);
-        setMap(nMap);
-    }, [data, id, map, setMap]);
 
     useEffect(() => {
+        // Create a new map to avoid mutating the old map
         const nMap = new Map(map);
-        if (nMap.has(id)) {
-            const nodeData = nMap.get(id);
-            setData({ top: nodeData[0], left: nodeData[1], childCount: nodeData[2] });
+        nMap.set(id, [data.top, data.left, data.childCount]);
+        //console.log(nMap)
+        setMap(nMap); // Update the context with the new map
+    },[data, id, map, setMap]); // Depend on `data` for updates
+    
+    useEffect(() => {
+        const nMap = new Map(map)
+        
+        if(nMap.has(id)){
+            const data = nMap.get(id)
+            console.log(data)
+            setData({ top: data[0], left: data[1], childCount: data[2] }); // Access by index
+            
         }
-    }, [map, id]);
+
+    },[map, id])
 
     return (
         <div
